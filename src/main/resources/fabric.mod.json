@@ -1,30 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "untitled",
-  "version": "${version}",
-  "name": "untitled",
-  "description": "",
-  "authors": [],
-  "contact": {},
-  "license": "All-Rights-Reserved",
-  "icon": "assets/untitled/icon.png",
+  "id": "opsec_addon",
+  "version": "1.0.1",
+  "name": "OpsecAddon",
+  "description": "NoammAddons addon that adds !opsec and !femboy party commands.",
+  "authors": ["you"],
+  "license": "CC0-1.0",
   "environment": "client",
   "entrypoints": {
     "client": [
       {
-        "value": "com.github.noamm9.untitled.Untitled",
-        "adapter": "kotlin"
+        "adapter": "kotlin",
+        "value": "com.example.opsecaddon.OpsecAddon"
       }
     ]
   },
-  "mixins": [
-    "untitled.mixins.json"
-  ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
-    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabricloader": ">=0.20.1",
+    "minecraft": "~26.3",
     "fabric-api": "*",
-    "noammaddons": "${noammaddons_version}",
-    "minecraft": "${minecraft_version}"
+    "fabric-language-kotlin": ">=1.14.2+kotlin.2.4.21",
+    "noammaddons": "*"
   }
 }

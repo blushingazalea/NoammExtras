@@ -1,9 +1,14 @@
-# NoammAddons's Addon Mod Template
+# OpsecAddon
 
-### Project-Specific Notes
-- In gradle.properties, set noammaddons-version to the version you want to build upon.
-- The Mod is configured with Mojang Mappings.
+A Fabric client addon for NoammAddons that adds simple party-chat utilities.
 
-### How to use
-1. Click the **"Use this template"** button above.
-2. Clone your new repository.
+## Included commands
+- !opsec: reports OS, current resolution, and estimated region
+- !femboy: sends a randomized femboy percentage for the sender
+
+## Layout
+- src/main/kotlin/com/example/opsecaddon contains the mod entrypoint and command logic
+- src/main/resources/fabric.mod.json defines the mod metadata for Fabric
+
+## Notes
+- This project keeps the active mod sources in the standard Fabric source tree and removes the unused template scaffolding.
