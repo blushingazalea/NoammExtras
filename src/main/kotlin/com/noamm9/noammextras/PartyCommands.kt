@@ -1,16 +1,11 @@
-package com.example.opsecaddon
+package com.noamm9.noammextras
 
+import com.github.noamm9.utils.ChatUtils
 import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents
 import net.minecraft.client.Minecraft
 import kotlin.random.Random
 
-/**
- * Listens for party commands in party chat (same idea as NoammAddons' PartyHelper) and replies in party chat.
- *
- * Hypixel party line format: "Party > [MVP+] Name: !opsec"
- *
- * Add new commands by extending the registry below without touching the listener logic.
- */
+/** Listens for party commands and queues replies through NoammAddons' paced chat helper. */
 object PartyCommands {
     private data class CommandDefinition(
         val name: String,
@@ -18,7 +13,7 @@ object PartyCommands {
     )
 
     private val commands = linkedMapOf(
-        "opsec" to CommandDefinition("opsec") { mc, _ -> OpsecInfo.summary(mc) },
+        "opsec" to CommandDefinition("opsec") { mc, _ -> SystemInfo.summary(mc) },
         "femboy" to CommandDefinition("femboy") { _, sender -> "$sender is ${femboyRoll()}% femboy" },
     )
 
@@ -28,15 +23,10 @@ object PartyCommands {
         RegexOption.IGNORE_CASE
     )
     private val COLOR_CODES = Regex("§.")
-    private const val COOLDOWN_MS = 3_000L
 
-    /** Flip to false to turn all commands off at runtime. */
     @Volatile
     var enabled = true
 
-    private var lastReply = 0L
-
-    /** 0-100, but with a 5% chance the result is 200 instead. */
     fun femboyRoll(): Int = if (Random.nextInt(100) < 5) 200 else Random.nextInt(0, 101)
 
     fun init() {
@@ -44,15 +34,11 @@ object PartyCommands {
             if (overlay || !enabled) return@register
 
             val parsed = parsePartyCommand(message.string) ?: return@register
-            val now = System.currentTimeMillis()
-            if (now - lastReply < COOLDOWN_MS) return@register
-            lastReply = now
-
             val (sender, commandName) = parsed
             val command = commands[commandName] ?: return@register
 
             val mc = Minecraft.getInstance()
-            mc.execute { sendPartyMessage(mc, command.handler(mc, sender)) }
+            mc.execute { ChatUtils.sendPartyMessage(command.handler(mc, sender)) }
         }
     }
 
@@ -60,13 +46,5 @@ object PartyCommands {
         val line = rawMessage.replace(COLOR_CODES, "").trim()
         val match = PARTY_LINE.matchEntire(line) ?: return null
         return match.groupValues[1] to match.groupValues[2].lowercase()
-    }
-
-    /**
-     * Vanilla way to send a party message. You can swap this body for
-     * NoammAddons' own ChatUtils.sendPartyMessage(text) (what PartyHelper uses).
-     */
-    private fun sendPartyMessage(mc: Minecraft, text: String) {
-        mc.player?.connection?.sendCommand("pc $text")
     }
 }

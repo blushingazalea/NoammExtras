@@ -1,8 +1,8 @@
-package com.example.opsecaddon
+package com.noamm9.noammextras
 
 import net.fabricmc.api.ClientModInitializer
 
-class OpsecAddon : ClientModInitializer {
+class NoammExtras : ClientModInitializer {
     override fun onInitializeClient() {
         PartyCommands.init()
     }

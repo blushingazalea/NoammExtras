@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "opsec_addon",
-  "version": "1.0.1",
-  "name": "OpsecAddon",
-  "description": "NoammAddons addon that adds !opsec and !femboy party commands.",
-  "authors": ["you"],
+  "id": "noammextras",
+  "version": "${version}",
+  "name": "NoammExtras",
+  "description": "Party chat utilities for NoammAddons.",
+  "authors": ["NoammExtras contributors"],
   "license": "CC0-1.0",
   "environment": "client",
   "entrypoints": {
     "client": [
       {
         "adapter": "kotlin",
-        "value": "com.example.opsecaddon.OpsecAddon"
+        "value": "com.noamm9.noammextras.NoammExtras"
       }
     ]
   },
