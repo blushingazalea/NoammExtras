@@ -15,4 +15,4 @@ A Fabric client addon for NoammAddons that adds party-chat utilities.
 - Party command replies are sent through NoammAddons' paced party-message queue.
 
 ## GitHub build
-Push a commit or run **Build NoammExtras** from the repository's Actions tab. Download the `NoammExtras` artifact from the completed workflow run, unzip it, and place the included `NoammExtras-<version>.jar` in your Fabric `mods` folder.
+Push a version tag such as `v1.0.1` to build and publish a GitHub Release. Download the `NoammExtras-<version>.jar` asset directly from the repository's **Releases** page and place it in your Fabric `mods` folder. Regular branch builds run in Actions but do not publish downloadable artifacts.
